@@ -12,10 +12,29 @@ This plugin in compatible with [NetBox](https://netbox.readthedocs.org/) 3.0 and
 
 ## Installation
 
-The plugin is available as a Python package in pypi and can be installed with pip
+Pip install from source:
+```
+pip install -e git+https://github.com/wangzewang/netbox-devicetype-importer.git@797542468b88a140ff49203cc622b555deb90df9#egg=netbox_devicetype_importer
+```
+If using netbox docker:
+1. clone this repo 
+2. execute `make pbuild` get the wheel package
+3. Add the wheel pkg to your netbox-docker, following this [instruction](https://github.com/netbox-community/netbox-docker/wiki/Using-Netbox-Plugins), Dockerfile may like this:
 
 ```
-pip install netbox-devicetype-importer
+FROM docker.io/netboxcommunity/netbox:latest
+
+COPY ./plugin_requirements.txt /
+RUN /opt/netbox/venv/bin/pip install  --no-warn-script-location -r /plugin_requirements.txt
+
+COPY ./netbox_devicetype_importer-0.1.0-py3-none-any.whl /
+RUN /opt/netbox/venv/bin/pip install /netbox_devicetype_importer-0.1.0-py3-none-any.whl
+
+
+# These lines are only required if your plugin has its own static files.
+COPY configuration/configuration.py /etc/netbox/config/configuration.py
+RUN SECRET_KEY="dummy" /opt/netbox/venv/bin/python /opt/netbox/netbox/manage.py collectstatic --no-input
+
 ```
 Enable the plugin in [NetBox Configuration](https://netbox.readthedocs.io/en/stable/configuration/)
 ```
