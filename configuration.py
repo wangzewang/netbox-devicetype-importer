@@ -151,7 +151,10 @@ NAPALM_ARGS = {
 PAGINATE_COUNT = os.environ.get("PAGINATE_COUNT", 50)
 
 # Enable installed plugins. Add the name of each plugin to the list.
-PLUGINS = ["netbox_devicetype_importer"]
+PLUGINS = [
+    'netbox_devicetype_importer',
+    # 'netbox_qrcode'
+]
 
 # Plugins configuration settings. These settings are used by various plugins that the user may have installed.
 # Each key in the dictionary is the name of an installed plugin and its value is a dictionary of settings.
@@ -159,6 +162,27 @@ PLUGINS_CONFIG = {
     'netbox_devicetype_importer': {
         'github_token': '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'
     },
+    # 'netbox_qrcode': {
+    # 'with_text': True,
+    # 'text_fields': ['name', 'serial'],
+    # 'font': 'ArialMT',
+    # 'custom_text': 'Property of SomeCompany\ntel.8.800333554-CALL',
+    # 'text_location': 'up',
+    # 'qr_version': 1,
+    # 'qr_error_correction': 0,
+    # 'qr_box_size': 4,
+    # 'qr_border': 4,
+    # # per object options
+    # 'cable': None,  # disable QR code for Cable object
+    # 'rack': {
+    # 'text_fields':
+    # ['site', 'name', 'facility_id', 'tenant', 'cf.cf_name']
+    # },
+    # 'device': {
+    # 'qr_box_size': 6,
+    # 'custom_text': None,
+    # }
+    # }
 }
 
 # When determining the primary IP address for a device, IPv6 is preferred over IPv4 by default. Set this to True to
